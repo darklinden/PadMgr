@@ -23,7 +23,7 @@
 		207790E21867BFB80023F929 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 207790E01867BFB80023F929 /* ViewController.xib */; };
 		207790EE1867C6CC0023F929 /* V_loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 207790ED1867C6CC0023F929 /* V_loading.m */; };
 		207794F41867CB890023F929 /* O_logic.m in Sources */ = {isa = PBXBuildFile; fileRef = 207794F31867CB890023F929 /* O_logic.m */; };
-		207794F61867EAC20023F929 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 207794F51867EAC20023F929 /* icon.png */; };
+		207795021868250C0023F929 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 207795011868250C0023F929 /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,7 @@
 		207790ED1867C6CC0023F929 /* V_loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V_loading.m; sourceTree = "<group>"; };
 		207794F21867CB890023F929 /* O_logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = O_logic.h; sourceTree = "<group>"; };
 		207794F31867CB890023F929 /* O_logic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O_logic.m; sourceTree = "<group>"; };
-		207794F51867EAC20023F929 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../../icon.png; sourceTree = "<group>"; };
+		207795011868250C0023F929 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +120,7 @@
 		207790B21867BE5C0023F929 /* PadMgr */ = {
 			isa = PBXGroup;
 			children = (
-				207794F51867EAC20023F929 /* icon.png */,
+				207795011868250C0023F929 /* icon.png */,
 				207790BB1867BE5C0023F929 /* AppDelegate.h */,
 				207790BC1867BE5C0023F929 /* AppDelegate.m */,
 				207790BE1867BE5C0023F929 /* Images.xcassets */,
@@ -240,7 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				207794F61867EAC20023F929 /* icon.png in Resources */,
+				207795021868250C0023F929 /* icon.png in Resources */,
 				207790B71867BE5C0023F929 /* InfoPlist.strings in Resources */,
 				207790E21867BFB80023F929 /* ViewController.xib in Resources */,
 				207790BF1867BE5C0023F929 /* Images.xcassets in Resources */,
@@ -385,11 +385,13 @@
 		207790D61867BE5D0023F929 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadMgr/PadMgr-Prefix.pch";
 				INFOPLIST_FILE = "PadMgr/PadMgr-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -398,11 +400,13 @@
 		207790D71867BE5D0023F929 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadMgr/PadMgr-Prefix.pch";
 				INFOPLIST_FILE = "PadMgr/PadMgr-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -469,6 +473,7 @@
 				207790D71867BE5D0023F929 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		207790D81867BE5D0023F929 /* Build configuration list for PBXNativeTarget "PadMgrTests" */ = {
 			isa = XCConfigurationList;
@@ -477,6 +482,7 @@
 				207790DA1867BE5D0023F929 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
