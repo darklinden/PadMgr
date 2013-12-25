@@ -139,7 +139,7 @@
     
     NSString *saved_path = [VC_select_path saved_path];
     if (saved_path) {
-        if ([[NSFileManager defaultManager] fileExistsAtPath:saved_path]) {
+        if ([O_logic fileExistsAtPath:saved_path]) {
             saved_path = [saved_path stringByDeletingLastPathComponent];
             saved_path = [saved_path stringByAppendingPathComponent:@"Documents"];
             self.path_pad_doc = saved_path;
@@ -147,7 +147,7 @@
     }
     
     if (self.path_pad_doc) {
-        if ([[NSFileManager defaultManager] fileExistsAtPath:self.path_pad_doc]) {
+        if ([O_logic fileExistsAtPath:self.path_pad_doc]) {
             valid = YES;
         }
     }
@@ -173,9 +173,9 @@
 - (void)refresh_friend
 {
     NSString *path_026 = [self.path_pad_doc stringByAppendingPathComponent:@"data026.bin"];
-    [[NSFileManager defaultManager] removeItemAtPath:path_026 error:nil];
+    [O_logic removeItemAtPath:path_026];
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path_026]) {
+    if ([O_logic fileExistsAtPath:path_026]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
                                                         message:@"刷新失败！"
                                                        delegate:nil
@@ -189,6 +189,7 @@
                                               cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
+    [V_loading remove_loadng];
 }
 
 - (void)delete_current
@@ -250,6 +251,7 @@
             [alert show];
         }
     }
+    [V_loading remove_loadng];
 }
 
 #pragma mark - table
@@ -305,7 +307,8 @@
         case Tag_alert_load_select_account:
         {
             if (1 == buttonIndex) {
-                [self load_selected];
+                [V_loading add_loading];
+                [self performSelector:@selector(load_selected) withObject:nil afterDelay:0.01f];
             }
         }
             break;
@@ -375,7 +378,8 @@
         case 2:
         {
             //refresh friend
-            [self refresh_friend];
+            [V_loading add_loading];
+            [self performSelector:@selector(refresh_friend) withObject:nil afterDelay:0.01f];
         }
             break;
         case 3:

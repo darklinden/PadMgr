@@ -10,6 +10,17 @@
 
 @interface O_logic : NSObject
 
++ (NSArray *)contentsOfDirectoryAtPath:(NSString *)directory;
+
++ (BOOL)removeItemAtPath:(NSString *)path;
+
++ (BOOL)copyItemAtPath:(NSString *)src
+                toPath:(NSString *)des;
+
++ (BOOL)fileExistsAtPath:(NSString *)path;
+
++ (BOOL)createDirectoryAtPath:(NSString *)path;
+
 + (NSArray *)get_app_list;
 + (NSString *)get_pad_path;
 + (NSArray *)get_account_list;

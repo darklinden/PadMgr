@@ -7,8 +7,110 @@
 //
 
 #import "O_logic.h"
+#include <stdio.h>
+#include <dirent.h>
+//#include "dos.h"
+//#include "conio.h"
 
 @implementation O_logic
+
++ (NSArray *)contentsOfDirectoryAtPath:(NSString *)directory
+{
+    if (!directory) {
+        return nil;
+    }
+    
+    DIR *directory_pointer;
+    struct dirent *entry;
+    
+    directory_pointer = opendir(directory.UTF8String);
+    NSMutableArray *array = [NSMutableArray array];
+    if (NULL == directory_pointer) {
+        return nil;
+    }
+    else {
+        do {
+            entry = readdir(directory_pointer);
+            if (entry) {
+                NSString *name = [NSString stringWithUTF8String:entry->d_name];
+                if ([name isEqualToString:@"."]
+                    || [name isEqualToString:@".."]) {
+                    continue;
+                }
+//                NSLog(@"%s", entry->d_name);
+                [array addObject:name];
+            }
+            
+        } while (entry);
+        
+        closedir(directory_pointer);
+    }
+    
+    return array;
+}
+
++ (BOOL)removeItemAtPath:(NSString *)path
+{
+    if (!path) {
+        return NO;
+    }
+    NSString *cmd = [NSString stringWithFormat:@"rm -rf \"%@\"", path];
+    if (0 == system(cmd.UTF8String)) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
++ (BOOL)copyItemAtPath:(NSString *)src
+                toPath:(NSString *)des
+{
+    if (!src || !des) {
+        return NO;
+    }
+    NSString *cmd = [NSString stringWithFormat:@"cp \"%@\" \"%@\"", src, des];
+    if (0 == system(cmd.UTF8String)) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
++ (BOOL)createDirectoryAtPath:(NSString *)path
+{
+    if (!path) {
+        return NO;
+    }
+    NSString *cmd = [NSString stringWithFormat:@"mkdir \"%@\"", path];
+    if (0 == system(cmd.UTF8String)) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
++ (BOOL)fileExistsAtPath:(NSString *)path
+{
+    //check if dir
+    DIR *directory_pointer;
+    directory_pointer = opendir(path.UTF8String);
+    if (directory_pointer) {
+        closedir(directory_pointer);
+        return YES;
+    }
+    
+    //check if file
+    FILE* fp = fopen(path.UTF8String, "r");
+    if (fp) {
+        fclose(fp);
+        return YES;
+    }
+    
+    return NO;
+}
 
 + (NSArray *)get_app_list
 {
@@ -20,15 +122,14 @@
     //app list
     path = [path stringByDeletingLastPathComponent];
     
-    NSError *err = nil;
-    NSArray *array_apps = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&err];
+    NSArray *array_apps = [self contentsOfDirectoryAtPath:path];
     
     NSMutableArray *array_app_list = [NSMutableArray array];
     for (NSString *name_app in array_apps) {
         
         NSString *path_app = [path stringByAppendingPathComponent:name_app];
         
-        NSArray *array_tmp = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path_app error:nil];
+        NSArray *array_tmp = [self contentsOfDirectoryAtPath:path_app];
         
         NSString *path_app_content = nil;
         for (NSString *name_tmp in array_tmp) {
@@ -54,8 +155,7 @@
     //app list
     path = [path stringByDeletingLastPathComponent];
     
-    NSError *err = nil;
-    NSArray *array_apps = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&err];
+    NSArray *array_apps = [self contentsOfDirectoryAtPath:path];
     
     NSString *path_pad_doc = nil;
     
@@ -63,7 +163,7 @@
         
         NSString *path_app = [path stringByAppendingPathComponent:name_app];
         
-        NSArray *array_tmp = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path_app error:nil];
+        NSArray *array_tmp = [self contentsOfDirectoryAtPath:path_app];
         
         NSString *path_app_content = nil;
         for (NSString *name_tmp in array_tmp) {
@@ -78,7 +178,7 @@
         }
         
         NSString *path_info_plist = nil;
-        NSArray *array_app_content = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path_app_content error:nil];
+        NSArray *array_app_content = [self contentsOfDirectoryAtPath:path_app_content];
         for (NSString *name_tmp in array_app_content) {
             if ([[[name_tmp lowercaseString] pathExtension] isEqualToString:@"plist"]) {
                 if ([[name_tmp lowercaseString] rangeOfString:@"info"].location != NSNotFound) {
@@ -103,13 +203,13 @@
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     
-    NSArray *array_acc = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
+    NSArray *array_acc = [self contentsOfDirectoryAtPath:path];
     
     NSMutableArray *array_ret = [NSMutableArray array];
     
     for (NSString *string_name in array_acc) {
         NSString *path_tmp = [path stringByAppendingPathComponent:string_name];
-        NSArray *array_tmp = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path_tmp error:nil];
+        NSArray *array_tmp = [self contentsOfDirectoryAtPath:path_tmp];
         BOOL valid = NO;
         
         for (NSString *name_tmp in array_tmp) {
@@ -123,7 +223,7 @@
             [array_ret addObject:string_name];
         }
         else {
-            [[NSFileManager defaultManager] removeItemAtPath:path_tmp error:nil];
+            [self removeItemAtPath:path_tmp];
         }
     }
     
@@ -157,11 +257,11 @@
     BOOL ret = YES;
     NSString *local_048 = nil;
     //clean local
-    NSArray *array_acc_content = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:account error:nil];
+    NSArray *array_acc_content = [self contentsOfDirectoryAtPath:account];
     for (NSString *name_tmp in array_acc_content) {
         if (![[name_tmp lowercaseString] isEqualToString:@"data048.bin"]) {
             NSString *path_tmp = [account stringByAppendingPathComponent:name_tmp];
-            ret = [[NSFileManager defaultManager] removeItemAtPath:path_tmp error:nil];
+            ret = [self removeItemAtPath:path_tmp];
         }
         else {
             local_048 = [account stringByAppendingPathComponent:name_tmp];
@@ -173,7 +273,7 @@
     }
     
     //copy remote
-    NSArray *array_pad_content = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:pad_doc error:nil];
+    NSArray *array_pad_content = [self contentsOfDirectoryAtPath:pad_doc];
     for (NSString *name_tmp in array_pad_content) {
         NSString *path_tmp = [pad_doc stringByAppendingPathComponent:name_tmp];
         if ([[name_tmp lowercaseString] isEqualToString:@"mon2"]) {
@@ -182,9 +282,8 @@
         
         if ([[name_tmp lowercaseString] isEqualToString:@"data048.bin"]) {
             if (!local_048) {
-                ret = [[NSFileManager defaultManager] copyItemAtPath:path_tmp
-                                                              toPath:[account stringByAppendingPathComponent:name_tmp]
-                                                               error:nil];
+                ret = [self copyItemAtPath:path_tmp
+                                    toPath:[account stringByAppendingPathComponent:name_tmp]];
                 if (!ret) {
                     break;
                 }
@@ -193,9 +292,8 @@
             continue;
         }
         
-        ret = [[NSFileManager defaultManager] copyItemAtPath:path_tmp
-                                                      toPath:[account stringByAppendingPathComponent:name_tmp]
-                                                       error:nil];
+        ret = [self copyItemAtPath:path_tmp
+                            toPath:[account stringByAppendingPathComponent:name_tmp]];
         
         if (!ret) {
             break;
@@ -208,14 +306,14 @@
 + (BOOL)delete_current_account_with_pad:(NSString *)pad_doc
 {
     BOOL ret = YES;
-    NSArray *array_pad_content = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:pad_doc error:nil];
+    NSArray *array_pad_content = [self contentsOfDirectoryAtPath:pad_doc];
     for (NSString *name_tmp in array_pad_content) {
         NSString *path_tmp = [pad_doc stringByAppendingPathComponent:name_tmp];
         if ([[name_tmp lowercaseString] isEqualToString:@"mon2"]) {
             continue;
         }
         
-        ret = [[NSFileManager defaultManager] removeItemAtPath:path_tmp error:nil];
+        ret = [self removeItemAtPath:path_tmp];
         
         if (!ret) {
             break;
@@ -233,13 +331,12 @@
         return ret;
     }
     
-    NSArray *array_acc_content = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:account error:nil];
+    NSArray *array_acc_content = [self contentsOfDirectoryAtPath:account];
     for (NSString *name_tmp in array_acc_content) {
         NSString *path_tmp = [account stringByAppendingPathComponent:name_tmp];
         NSString *path_remote = [pad_doc stringByAppendingPathComponent:name_tmp];
-        ret = [[NSFileManager defaultManager] copyItemAtPath:path_tmp
-                                                      toPath:path_remote
-                                                       error:nil];
+        ret = [self copyItemAtPath:path_tmp
+                            toPath:path_remote];
         
         if (!ret) {
             break;
