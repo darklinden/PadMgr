@@ -9,12 +9,14 @@
 #import "ViewController.h"
 #import "V_loading.h"
 #import "O_logic.h"
+#import "VC_select_path.h"
 
 #define Tag_alert_load_select_account       122301
 #define Tag_alert_save_account_new_name     122302
 #define Tag_alert_delete_current_account    122303
+#define Tag_alert_manually_set_path         122304
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, Delegate_select_path>
 @property (nonatomic,   weak) IBOutlet UITableView   *table_acc_list;
 
 @property (nonatomic, strong) NSString      *path_pad_doc;
@@ -60,7 +62,7 @@
                                                       delegate:self
                                              cancelButtonTitle:@"取消"
                                         destructiveButtonTitle:nil
-                                             otherButtonTitles:@"删除当前账号(刷初始)", @"保存当前账号", @"刷新当前账号好友", nil];
+                                             otherButtonTitles:@"删除当前账号(刷初始)", @"保存当前账号", @"刷新当前账号好友", @"清除已手动设置的PAD位置", nil];
     [acts showInView:self.navigationController.view];
 }
 
@@ -133,13 +135,35 @@
 
 - (void)do_reload
 {
-    self.path_pad_doc = [O_logic get_pad_path];
+    BOOL valid = NO;
+    
+    NSString *saved_path = [VC_select_path saved_path];
+    if (saved_path) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:saved_path]) {
+            saved_path = [saved_path stringByDeletingLastPathComponent];
+            saved_path = [saved_path stringByAppendingPathComponent:@"Documents"];
+            self.path_pad_doc = saved_path;
+        }
+    }
+    
+    if (self.path_pad_doc) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:self.path_pad_doc]) {
+            valid = YES;
+        }
+    }
+    
+    if (!valid) {
+        self.path_pad_doc = [O_logic get_pad_path];
+    }
+    
     self.array_acc_list = [O_logic get_account_list];
+    
     if (!self.path_pad_doc) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"未获取到PAD安装地址！请检查是否已越狱且安装PAD！"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                                                        message:@"未获取到PAD安装地址！请检查是否已越狱且安装PAD！点击‘\"是\"手动指定该路径。（替换账号时会删除该app的Documents下的其他内容，手动指定如果错误会有风险）"
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.tag = Tag_alert_manually_set_path;
         [alert show];
     }
     [self.table_acc_list reloadData];
@@ -319,6 +343,13 @@
             }
         }
             break;
+        case Tag_alert_manually_set_path:
+        {
+            if (1 == buttonIndex) {
+                [VC_select_path show_selector_with_delegate:self];
+            }
+        }
+            break;
         default:
             break;
     }
@@ -347,9 +378,24 @@
             [self refresh_friend];
         }
             break;
+        case 3:
+        {
+            [VC_select_path save_path:nil];
+            self.path_pad_doc = nil;
+            [self reload];
+        }
+            break;
         default:
             break;
     }
+}
+
+#pragma mark -
+- (void)select_path:(NSString *)path
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self reload];
+    }];
 }
 
 @end

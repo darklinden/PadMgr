@@ -10,6 +10,40 @@
 
 @implementation O_logic
 
++ (NSArray *)get_app_list
+{
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    
+    //app home
+    path = [path stringByDeletingLastPathComponent];
+    
+    //app list
+    path = [path stringByDeletingLastPathComponent];
+    
+    NSError *err = nil;
+    NSArray *array_apps = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&err];
+    
+    NSMutableArray *array_app_list = [NSMutableArray array];
+    for (NSString *name_app in array_apps) {
+        
+        NSString *path_app = [path stringByAppendingPathComponent:name_app];
+        
+        NSArray *array_tmp = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path_app error:nil];
+        
+        NSString *path_app_content = nil;
+        for (NSString *name_tmp in array_tmp) {
+            if ([[[name_tmp lowercaseString] pathExtension] isEqualToString:@"app"]) {
+                path_app_content = [path_app stringByAppendingPathComponent:name_tmp];
+                break;
+            }
+        }
+        
+        [array_app_list addObject:path_app_content];
+    }
+    
+    return array_app_list;
+}
+
 + (NSString *)get_pad_path
 {
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];

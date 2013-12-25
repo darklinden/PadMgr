@@ -24,6 +24,8 @@
 		207790EE1867C6CC0023F929 /* V_loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 207790ED1867C6CC0023F929 /* V_loading.m */; };
 		207794F41867CB890023F929 /* O_logic.m in Sources */ = {isa = PBXBuildFile; fileRef = 207794F31867CB890023F929 /* O_logic.m */; };
 		207795021868250C0023F929 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 207795011868250C0023F929 /* icon.png */; };
+		20EA11E4186A682900EFAD17 /* VC_select_path.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EA11E2186A682900EFAD17 /* VC_select_path.m */; };
+		20EA11E5186A682900EFAD17 /* VC_select_path.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20EA11E3186A682900EFAD17 /* VC_select_path.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,9 @@
 		207794F21867CB890023F929 /* O_logic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = O_logic.h; sourceTree = "<group>"; };
 		207794F31867CB890023F929 /* O_logic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O_logic.m; sourceTree = "<group>"; };
 		207795011868250C0023F929 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		20EA11E1186A682900EFAD17 /* VC_select_path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VC_select_path.h; sourceTree = "<group>"; };
+		20EA11E2186A682900EFAD17 /* VC_select_path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VC_select_path.m; sourceTree = "<group>"; };
+		20EA11E3186A682900EFAD17 /* VC_select_path.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VC_select_path.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +137,9 @@
 				207790ED1867C6CC0023F929 /* V_loading.m */,
 				207794F21867CB890023F929 /* O_logic.h */,
 				207794F31867CB890023F929 /* O_logic.m */,
+				20EA11E1186A682900EFAD17 /* VC_select_path.h */,
+				20EA11E2186A682900EFAD17 /* VC_select_path.m */,
+				20EA11E3186A682900EFAD17 /* VC_select_path.xib */,
 			);
 			path = PadMgr;
 			sourceTree = "<group>";
@@ -243,6 +251,7 @@
 				207795021868250C0023F929 /* icon.png in Resources */,
 				207790B71867BE5C0023F929 /* InfoPlist.strings in Resources */,
 				207790E21867BFB80023F929 /* ViewController.xib in Resources */,
+				20EA11E5186A682900EFAD17 /* VC_select_path.xib in Resources */,
 				207790BF1867BE5C0023F929 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				207790E11867BFB80023F929 /* ViewController.m in Sources */,
+				20EA11E4186A682900EFAD17 /* VC_select_path.m in Sources */,
 				207790EE1867C6CC0023F929 /* V_loading.m in Sources */,
 				207794F41867CB890023F929 /* O_logic.m in Sources */,
 				207790BD1867BE5C0023F929 /* AppDelegate.m in Sources */,
@@ -388,6 +398,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadMgr/PadMgr-Prefix.pch";
 				INFOPLIST_FILE = "PadMgr/PadMgr-Info.plist";
@@ -403,6 +414,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadMgr/PadMgr-Prefix.pch";
 				INFOPLIST_FILE = "PadMgr/PadMgr-Info.plist";

@@ -10,6 +10,7 @@
 
 @interface O_logic : NSObject
 
++ (NSArray *)get_app_list;
 + (NSString *)get_pad_path;
 + (NSArray *)get_account_list;
 + (NSString *)get_current_account_with_pad:(NSString *)pad_doc
