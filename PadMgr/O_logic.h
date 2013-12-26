@@ -33,4 +33,6 @@
 + (BOOL)load_current_account_with_pad:(NSString *)pad_doc
                               account:(NSString *)account;
 
++ (BOOL)exchange_056_with_pad:(NSString *)pad_doc;
+
 @end

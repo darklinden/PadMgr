@@ -208,6 +208,10 @@
     NSMutableArray *array_ret = [NSMutableArray array];
     
     for (NSString *string_name in array_acc) {
+        if ([[string_name lowercaseString] isEqualToString:@"data056.bin"]) {
+            continue;
+        }
+        
         NSString *path_tmp = [path stringByAppendingPathComponent:string_name];
         NSArray *array_tmp = [self contentsOfDirectoryAtPath:path_tmp];
         BOOL valid = NO;
@@ -342,6 +346,22 @@
             break;
         }
     }
+    
+    return ret;
+}
+
++ (BOOL)exchange_056_with_pad:(NSString *)pad_doc
+{
+    NSString *des = [pad_doc stringByAppendingPathComponent:@"data056.bin"];
+    BOOL ret = [self removeItemAtPath:des];
+    
+    if (!ret) {
+        return NO;
+    }
+    
+    NSString *src = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"data056.bin"];
+    
+    ret = [self copyItemAtPath:src toPath:des];
     
     return ret;
 }

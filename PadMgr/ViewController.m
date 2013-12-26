@@ -62,7 +62,7 @@
                                                       delegate:self
                                              cancelButtonTitle:@"取消"
                                         destructiveButtonTitle:nil
-                                             otherButtonTitles:@"删除当前账号(刷初始)", @"保存当前账号", @"刷新当前账号好友", @"清除已手动设置的PAD位置", nil];
+                                             otherButtonTitles:@"删除当前账号(刷初始)", @"替换056(刷初始)", @"保存当前账号", @"刷新当前账号好友", @"清除已手动设置的PAD位置", nil];
     [acts showInView:self.navigationController.view];
 }
 
@@ -254,6 +254,27 @@
     [V_loading remove_loadng];
 }
 
+- (void)exchange_056
+{
+    
+    if ([O_logic exchange_056_with_pad:self.path_pad_doc]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"替换056成功！"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"替换056失败！"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    [V_loading remove_loadng];
+}
+
 #pragma mark - table
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -370,19 +391,26 @@
             break;
         case 1:
         {
+            //delete
+            [V_loading add_loading];
+            [self performSelector:@selector(exchange_056) withObject:nil afterDelay:0.01];
+        }
+            break;
+        case 2:
+        {
             //save
             [V_loading add_loading];
             [self performSelector:@selector(save) withObject:nil afterDelay:0.01f];
         }
             break;
-        case 2:
+        case 3:
         {
             //refresh friend
             [V_loading add_loading];
             [self performSelector:@selector(refresh_friend) withObject:nil afterDelay:0.01f];
         }
             break;
-        case 3:
+        case 4:
         {
             [VC_select_path save_path:nil];
             self.path_pad_doc = nil;
