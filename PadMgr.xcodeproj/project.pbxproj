@@ -13,7 +13,6 @@
 		207790B71867BE5C0023F929 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 207790B51867BE5C0023F929 /* InfoPlist.strings */; };
 		207790B91867BE5C0023F929 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 207790B81867BE5C0023F929 /* main.m */; };
 		207790BD1867BE5C0023F929 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 207790BC1867BE5C0023F929 /* AppDelegate.m */; };
-		207790BF1867BE5C0023F929 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 207790BE1867BE5C0023F929 /* Images.xcassets */; };
 		207790C61867BE5D0023F929 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 207790C51867BE5D0023F929 /* XCTest.framework */; };
 		207790C71867BE5D0023F929 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 207790AC1867BE5C0023F929 /* Foundation.framework */; };
 		207790C81867BE5D0023F929 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 207790B01867BE5C0023F929 /* UIKit.framework */; };
@@ -49,7 +48,6 @@
 		207790BA1867BE5C0023F929 /* PadMgr-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadMgr-Prefix.pch"; sourceTree = "<group>"; };
 		207790BB1867BE5C0023F929 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		207790BC1867BE5C0023F929 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		207790BE1867BE5C0023F929 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		207790C41867BE5D0023F929 /* PadMgrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PadMgrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		207790C51867BE5D0023F929 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		207790CD1867BE5D0023F929 /* PadMgrTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PadMgrTests-Info.plist"; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				207795011868250C0023F929 /* icon.png */,
 				207790BB1867BE5C0023F929 /* AppDelegate.h */,
 				207790BC1867BE5C0023F929 /* AppDelegate.m */,
-				207790BE1867BE5C0023F929 /* Images.xcassets */,
 				207790B31867BE5C0023F929 /* Supporting Files */,
 				207790DE1867BFB80023F929 /* ViewController.h */,
 				207790DF1867BFB80023F929 /* ViewController.m */,
@@ -252,7 +249,6 @@
 				207790B71867BE5C0023F929 /* InfoPlist.strings in Resources */,
 				207790E21867BFB80023F929 /* ViewController.xib in Resources */,
 				20EA11E5186A682900EFAD17 /* VC_select_path.xib in Resources */,
-				207790BF1867BE5C0023F929 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,7 +398,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadMgr/PadMgr-Prefix.pch";
 				INFOPLIST_FILE = "PadMgr/PadMgr-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -418,7 +414,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadMgr/PadMgr-Prefix.pch";
 				INFOPLIST_FILE = "PadMgr/PadMgr-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

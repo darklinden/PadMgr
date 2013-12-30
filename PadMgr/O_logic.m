@@ -20,6 +20,10 @@
         return nil;
     }
     
+    //use sys api
+    return [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directory error:nil];
+    
+    /*
     DIR *directory_pointer;
     struct dirent *entry;
     
@@ -47,6 +51,7 @@
     }
     
     return array;
+     */
 }
 
 + (BOOL)removeItemAtPath:(NSString *)path
@@ -54,6 +59,11 @@
     if (!path) {
         return NO;
     }
+    
+    //use sys api
+    return [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    
+    /*
     NSString *cmd = [NSString stringWithFormat:@"rm -rf \"%@\"", path];
     if (0 == system(cmd.UTF8String)) {
         return YES;
@@ -61,6 +71,7 @@
     else {
         return NO;
     }
+     */
 }
 
 + (BOOL)copyItemAtPath:(NSString *)src
@@ -69,6 +80,11 @@
     if (!src || !des) {
         return NO;
     }
+    
+    //use sys api
+    return [[NSFileManager defaultManager] copyItemAtPath:src toPath:des error:nil];
+    
+    /*
     NSString *cmd = [NSString stringWithFormat:@"cp \"%@\" \"%@\"", src, des];
     if (0 == system(cmd.UTF8String)) {
         return YES;
@@ -76,6 +92,7 @@
     else {
         return NO;
     }
+     */
 }
 
 + (BOOL)createDirectoryAtPath:(NSString *)path
@@ -83,6 +100,11 @@
     if (!path) {
         return NO;
     }
+    
+    //use sys api
+    return [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    /*
     NSString *cmd = [NSString stringWithFormat:@"mkdir \"%@\"", path];
     if (0 == system(cmd.UTF8String)) {
         return YES;
@@ -90,10 +112,19 @@
     else {
         return NO;
     }
+     */
 }
 
 + (BOOL)fileExistsAtPath:(NSString *)path
 {
+    if (!path) {
+        return NO;
+    }
+    
+    //use sys api
+    return [[NSFileManager defaultManager] fileExistsAtPath:path];
+    
+    /*
     //check if dir
     DIR *directory_pointer;
     directory_pointer = opendir(path.UTF8String);
@@ -110,6 +141,7 @@
     }
     
     return NO;
+     */
 }
 
 + (NSArray *)get_app_list
