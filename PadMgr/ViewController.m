@@ -229,12 +229,18 @@
         NSString *path_current_account = [O_logic get_current_account_with_pad:self.path_pad_doc
                                                                       accounts:self.array_acc_list];
         
+        NSString *name_account = self.array_acc_list[self.index_last_select.row];
         if (path_current_account) {
-            [O_logic save_current_account_with_pad:self.path_pad_doc
-                                           account:path_current_account];
+            if ([name_account isEqualToString:path_current_account.lastPathComponent]) {
+                //pass
+            }
+            else {
+                [O_logic save_current_account_with_pad:self.path_pad_doc
+                                               account:path_current_account];
+            }
         }
         
-        NSString *name_account = self.array_acc_list[self.index_last_select.row];
+        
         NSString *path_account = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name_account];
         if ([O_logic load_current_account_with_pad:self.path_pad_doc account:path_account]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
