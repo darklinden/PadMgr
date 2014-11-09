@@ -1,18 +1,12 @@
-//
-//  main.m
-//  PadMgr
-//
-//  Created by user_admin on D/23/2013.
-//  Copyright (c) 2013 comcsoft. All rights reserved.
-//
 
-#import <UIKit/UIKit.h>
-
-#import "AppDelegate.h"
-
-int main(int argc, char * argv[])
-{
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
+int main(int argc, char **argv) {
+    setuid(0);
+    setgid(0);
+    
+	NSAutoreleasePool *p = [[NSAutoreleasePool alloc] init];
+	int ret = UIApplicationMain(argc, argv, @"AppDelegate", @"AppDelegate");
+	[p drain];
+	return ret;
 }
+
+// vim:ft=objc

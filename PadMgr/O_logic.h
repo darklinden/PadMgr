@@ -10,6 +10,8 @@
 
 @interface O_logic : NSObject
 
+#define DOC_SAVE_PATH @"/usr/padmgrdoc"
+
 + (NSArray *)contentsOfDirectoryAtPath:(NSString *)directory;
 
 + (BOOL)removeItemAtPath:(NSString *)path;

@@ -1,0 +1,9 @@
+Package: com.darklinden.padmgr
+Name: PadMgr
+Depends: 
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome application!
+Maintainer: darklinden
+Author: darklinden
+Section: Utilities
