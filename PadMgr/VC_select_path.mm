@@ -183,4 +183,14 @@
     }
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
+}
+
 @end
