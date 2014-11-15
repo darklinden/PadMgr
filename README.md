@@ -1,4 +1,4 @@
 PadMgr
 ======
 
-a tool for manage pad accounts on jealbreaked ios devices
+a tool for manage pad accounts on jeal boken ios devices
